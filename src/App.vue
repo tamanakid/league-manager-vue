@@ -1,18 +1,21 @@
 <template>
-  <div id="app">
-    <MainLayout class="layout" />
-  </div>
+\t<v-app>
+\t\t<MainLayout />
+\t</v-app>
 </template>
-
 
 <script>
 import MainLayout from '@/layout/MainLayout.vue';
 
 export default {
-  name: 'App',
+\tname: 'App',
 
-  components: {
-    MainLayout,
-  },
+\tcomponents: {
+\t\tMainLayout,
+\t},
+
+\tdata: () => ({
+\t\t//
+\t}),
 };
 </script>

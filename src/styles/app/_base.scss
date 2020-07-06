@@ -7,13 +7,14 @@ body {
 	overflow: hidden;
 }
 
+
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+\t-webkit-font-smoothing: antialiased;
+\t-moz-osx-font-smoothing: grayscale;
 	
 	text-align: center;
 	margin: 0;
 
-  color: $color-default-text;
-  background: $color-main-bg-light;
+\tcolor: $color-default-text;
+\tbackground: $color-main-bg-light;
 }
