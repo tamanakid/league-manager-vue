@@ -1,10 +1,10 @@
 <template>
-\t<div class="l-layout">
-\t\t<Header />
-\t\t<v-main>
-\t\t\t<router-view />
-\t\t</v-main>
-\t</div>
+  <div class="l-layout">
+    <Header />
+    <v-main>
+      <router-view />
+    </v-main>
+  </div>
 </template>
 
 
@@ -12,16 +12,16 @@
 import Header from './Header.vue';
 
 export default {
-\tname: 'MainLayout',
+  name: 'MainLayout',
 
-\tcomponents: {
-\t\tHeader,
-\t},
+  components: {
+    Header,
+  },
 
 
-\tmounted() {
-\t\tconsole.log('VUE_APP_API_URL:', process.env.VUE_APP_API_URL);
-\t},
+  mounted() {
+    console.log('VUE_APP_API_URL:', process.env.VUE_APP_API_URL);
+  },
 
 };
 </script>

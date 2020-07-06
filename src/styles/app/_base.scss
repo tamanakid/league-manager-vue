@@ -9,12 +9,12 @@ body {
 
 
 #app {
-\t-webkit-font-smoothing: antialiased;
-\t-moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 	
 	text-align: center;
 	margin: 0;
 
-\tcolor: $color-default-text;
-\tbackground: $color-main-bg-light;
+  color: $color-default-text;
+  background: $color-main-bg-light;
 }

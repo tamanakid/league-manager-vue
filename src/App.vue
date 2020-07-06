@@ -1,21 +1,21 @@
 <template>
-\t<v-app>
-\t\t<MainLayout />
-\t</v-app>
+  <v-app>
+    <MainLayout />
+  </v-app>
 </template>
 
 <script>
 import MainLayout from '@/layout/MainLayout.vue';
 
 export default {
-\tname: 'App',
+  name: 'App',
 
-\tcomponents: {
-\t\tMainLayout,
-\t},
+  components: {
+    MainLayout,
+  },
 
-\tdata: () => ({
-\t\t//
-\t}),
+  data: () => ({
+    //
+  }),
 };
 </script>
