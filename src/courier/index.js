@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 
 import authEndpoints from './endpoints/auth';
@@ -12,23 +13,22 @@ const courier = axios.create({
 
 
 const performRequest = ({ method, url, data }) => {
+  
 	return courier({ method, url, data })
-	
-	.then((response) => {
-		console.log("response:", response);
-		return Promise.resolve(response.data);
-	})
+    .then((response) => {
+      console.log("response:", response);
+      return Promise.resolve(response.data);
+    })
 
-	.catch((error) => {
-    console.log(error);
-    return Promise.reject(error);
-	})
+    .catch((error) => {
+      console.log(error);
+      return Promise.reject(error);
+    })
 }
 
 
 
-const buildEndpoints = (endpoints, route) => {
-
+const buildController = (name, endpoints, route) => {
 	let controller = {};
 
 	Object.keys(endpoints).forEach((endpoint) => {
@@ -40,11 +40,13 @@ const buildEndpoints = (endpoints, route) => {
 		}
 	});
 
-	return controller;
+	courier[name] = controller;
 }
 
 
-export const authController = buildEndpoints(authEndpoints, '/auth');
+buildController('auth', authEndpoints, '/auth');
 
+
+Vue.prototype.$courier = courier;
 
 export default courier;

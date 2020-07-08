@@ -1,4 +1,4 @@
-import { authController } from '@/courier'
+import courier from '@/courier'
 
 
 export const AUTH_LOGIN = 'AUTH_LOGIN';
@@ -35,7 +35,7 @@ export default {
 
 	actions: {
 		async doLogin (context, payload) {
-			response = await authController.postLogin({ data: payload });
+			response = await courier.auth.postLogin({ data: payload });
 			console.log(response);
 		}
 	}

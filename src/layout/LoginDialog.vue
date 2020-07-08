@@ -9,7 +9,7 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field outlined hide-details v-model="username" label="Username" required></v-text-field>
+            <v-text-field outlined hide-details v-model="usernameOrEmail" label="Username or Email" required></v-text-field>
           </v-col>
           <v-col cols="12">
             <v-text-field
@@ -47,7 +47,7 @@ export default {
 
   data() {
     return {
-      username: '',
+      usernameOrEmail: '',
       password: '',
       showPassword: false,
     };
@@ -64,7 +64,7 @@ export default {
 
     onClickLogin() {
       const payload = {
-        username: this.username, 
+        usernameOrEmail: this.usernameOrEmail, 
         password: this.password
       };
       this.$store.dispatch('auth/doLogin', payload);
