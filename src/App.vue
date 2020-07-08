@@ -4,8 +4,10 @@
   </v-app>
 </template>
 
+
 <script>
 import MainLayout from '@/layout/MainLayout.vue';
+
 
 export default {
   name: 'App',
@@ -13,9 +15,5 @@ export default {
   components: {
     MainLayout,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>

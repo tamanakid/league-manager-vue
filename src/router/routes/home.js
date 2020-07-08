@@ -2,13 +2,13 @@ import Home from '@/views/Home.vue';
 
 export default [
   {
-    path: '/',
-    name: 'Home',
+    path: '',
+    name: 'home',
     component: Home,
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
   },
 ];

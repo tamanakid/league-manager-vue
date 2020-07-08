@@ -1,43 +1,50 @@
 <template>
-  <v-app-bar app color="primary" dark>
-    <div class="d-flex align-center">
-      <v-img
-        alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-        transition="scale-transition"
-        width="40"
-      />
-
-      <v-img
-        alt="Vuetify Name"
-        class="shrink mt-1 hidden-sm-and-down"
-        contain
-        min-width="100"
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-        width="100"
-      />
-    </div>
+  <v-app-bar app absolute color="primary" dark>
+    <HeaderLogo />
 
     <v-spacer></v-spacer>
 
-    <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
-      text
-    >
-      <span class="mr-2">Latest Release</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+    <template v-for="action in getActions">
+      <HeaderAction v-bind="action" :key="action.name" />
+    </template>
+
+   <LoginDialog v-if="isLoginDialogOpen && !isLoggedIn" />
+
   </v-app-bar>
 </template>
 
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
+import HeaderLogo from '@/layout/HeaderLogo.vue'
+import HeaderAction from '@/layout/HeaderAction.vue'
+import LoginDialog from '@/layout/LoginDialog.vue';
 
 export default {
   name: 'Header',
+
+  components: {
+    HeaderAction,
+    HeaderLogo,
+    LoginDialog,
+  },
+  
+  computed: {
+    ...mapState('auth', {
+      isLoginDialogOpen: state => state.isLoginDialogOpen,
+    }),
+
+    ...mapGetters('custom', [
+      'getActions'
+    ]),
+
+    ...mapGetters('auth', [
+      'isLoggedIn'
+    ])
+  },
+
+  
 };
 </script>
 

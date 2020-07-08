@@ -1,5 +1,5 @@
 <template>
-  <div class="l-layout">
+  <div>
     <Header />
     <v-main>
       <router-view />

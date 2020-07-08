@@ -1,10 +1,6 @@
-/* Colors */
-$color-main: #0f2f6f;
-$color-main-text: shade($color-main, 30%);
-$color-main-bg-light: tint($color-main, 90%);
-$color-main-bg-mid: tint($color-main, 80%);
-$color-main-bg-dark: tint($color-main, 70%);
+/** Colors */
+/* some color definitions are defined at plugins/vuetify.js */
+
 
 $color-default-text: #2c3e50;
-
-$color-bg: #fbf3ff;
+$color-bg-light: #fbf3ff;
