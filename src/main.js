@@ -8,6 +8,7 @@ import '@/styles/app/main.scss';
 import vuetify from '@/plugins/vuetify';
 
 
+
 Vue.config.productionTip = false;
 
 new Vue({

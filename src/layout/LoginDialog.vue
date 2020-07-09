@@ -26,7 +26,9 @@
     <template v-slot:footer>
       <v-btn class="primary" @click="onClickLogin">Log in</v-btn>
       <v-btn @click="onCloseDialog">Close</v-btn>
+      <v-btn @click="onRefreshCookie">RefreshCookie</v-btn>
     </template>
+
 
   </CustomDialog>
 </template>
@@ -53,6 +55,10 @@ export default {
     };
   },
 
+  // mounted() {
+  //   debugger;
+  // },
+
   methods: {
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
@@ -68,7 +74,11 @@ export default {
         password: this.password
       };
       this.$store.dispatch('auth/doLogin', payload);
-    }
+    },
+
+    onRefreshCookie() {
+      this.$apiProxy.auth.refreshCookie();
+    },
   },
 
 };

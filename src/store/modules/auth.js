@@ -1,4 +1,4 @@
-import courier from '@/courier'
+import api from '@/api'
 
 
 export const AUTH_LOGIN = 'AUTH_LOGIN';
@@ -34,9 +34,11 @@ export default {
 	},
 
 	actions: {
-		async doLogin (context, payload) {
-			response = await courier.auth.postLogin({ data: payload });
-			console.log(response);
+		doLogin (context, payload) {
+			api.auth.postLogin({ data: payload })
+				.then((response) => {
+					console.log(response);
+				})
 		}
 	}
 
