@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 
 import controllers from './controllers';
-import store from '@/store';
+import factory from './factory'
 
 
 
@@ -15,80 +15,7 @@ const courier = axios.create({
   withCredentials: true
 });
 
-
-
-/* Axios Instance Interceptors */
-
-
-
-/* Request Handler (May be substituted by interceptors) */
-
-const API_INVALID_TOKEN = "AUTH_INVALID_TOKEN";
-const API_INVALID_REFRESH_TOKEN = "AUTH_INVALID_REFRESH_TOKEN";
-
-
-function getErrorCode(error) {
-  return (error && error.response && error.response.data && error.response.data.errorCode);
-}
-
-
-async function executeRequest ({ method, url, data }) {
-  try {
-    const response = await courier({ method, url, data });
-    console.log("response:", response);
-    return Promise.resolve(response.data);    
-  }
-
-  catch (error) {
-    if (getErrorCode(error) === API_INVALID_TOKEN) {
-      return refreshToken(courier);
-    }
-    return Promise.reject(error);
-  }
-}
-
-
-async function refreshToken () {
-  let response;
-  try {
-    response = await courier.post('/auth/refresh-token')
-    return response.data;
-  } 
-  
-  catch (error) {
-    if (getErrorCode(error) === API_INVALID_REFRESH_TOKEN) {
-      store.dispatch('auth/handleInvalidRefresh');
-    }
-    return Promise.reject(error);
-  }
-}
-
-
-
-/** API Proxy Instance:
- * - Contains the controllers nesting the endpoints
- * - Has closure over the axios instance and the request handler
- * - May have closure over other instances (On-flight requests list)
- */
-
-const apiProxy = {
-  refreshToken,
-
-  buildController: function ({ name, endpoints, basePath }) {
-    let controller = {};
-
-    Object.keys(endpoints).forEach((endpoint) => {
-      const url = basePath + endpoints[endpoint].url;
-      const method = endpoints[endpoint].method;
-
-      controller[endpoint] = ({ data } = {}) => {
-        return executeRequest({ method, url, data });
-      }
-    });
-
-    this[name] = controller;
-  }
-}
+const apiProxy = new factory(courier);
 
 
 /* Proxy's Controllers Instantiation */

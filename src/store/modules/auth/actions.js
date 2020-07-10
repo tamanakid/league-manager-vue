@@ -15,19 +15,19 @@ export default {
 			})
 	},
 
+	/* Payload: request rejected by access token expiration */
 	doRefreshToken ({ commit }, payload) {
-		return apiProxy.refreshToken()
-			.then((data) => {
-				commit(AUTH_LOGIN, data);
-				console.log('navigate or do stuff');
-				return Promise.resolve();
+		return apiProxy.refreshToken(payload)
+			.then((pendingResponse) => {
+				return Promise.resolve(pendingResponse);
 			})
 			.catch((error) => {
 				return Promise.reject(error);
 			});
 	},
 
-	handleInvalidRefresh ({ commit }) {
+	handleInvalidRefresh ({ commit }, error) {
 		commit(AUTH_LOGOUT);
+		return Promise.reject(error);
 	}
 };

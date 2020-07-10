@@ -18,10 +18,10 @@ const router = new VueRouter({
 });
 
 
-router.beforeEach((to, from, next) => {
-  if ((to.name !== 'home') && (!store.getters['auth/isLoggedIn'])) {
-    next({ name: 'home' });
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if ((to.name !== 'home') && (!store.getters['auth/isLoggedIn'])) {
+//     next({ name: 'home' });
+//   }
+// })
 
 export default router;
