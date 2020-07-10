@@ -16,6 +16,7 @@
               outlined hide-details v-model="password" label="Password" required
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :type="showPassword ? 'text' : 'password'"
+              @keydown.enter="onClickLogin"
               @click:append="toggleShowPassword"
             ></v-text-field>
           </v-col>
@@ -36,7 +37,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
-import { AUTH_CLOSE_LOGIN_DIALOG } from '@/store/modules/auth'
+import { AUTH_CLOSE_LOGIN_DIALOG } from '@/store/modules/auth/mutations'
 import CustomDialog from '@/components/CustomDialog.vue';
 
 export default {

@@ -3,8 +3,4 @@ export default {
 		method: 'post',
 		url: '/login',
 	},
-	refreshToken: {
-		method: 'post',
-		url: '/refresh-token',
-	},
 }

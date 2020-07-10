@@ -18,11 +18,6 @@ export default {
     Header,
   },
 
-
-  mounted() {
-    console.log('VUE_APP_API_URL:', process.env.VUE_APP_API_URL);
-  },
-
 };
 </script>
 

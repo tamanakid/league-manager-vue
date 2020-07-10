@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-import controllers from './controllers'
+import controllers from './controllers';
+import store from '@/store';
 
 
 
@@ -22,26 +23,52 @@ const courier = axios.create({
 
 /* Request Handler (May be substituted by interceptors) */
 
-async function performRequest ({ method, url, data }) {
-	try {
-    const response = await courier({ method, url, data });
-    console.log("response:", response);
-    return Promise.resolve(response);
-  }
-  catch (error) {
-    console.log(error);
-    return Promise.reject(error);
-  }
-};
+const API_INVALID_TOKEN = "AUTH_INVALID_TOKEN";
+const API_INVALID_REFRESH_TOKEN = "AUTH_INVALID_REFRESH_TOKEN";
+
+
+function getErrorCode(error) {
+  return (error && error.response && error.response.data && error.response.data.errorCode);
+}
+
+
+function executeRequest ({ method, url, data }) {
+  return courier({ method, url, data })
+    .then((response) => {
+      console.log("response:", response);
+      return Promise.resolve(response.data);
+    })
+    .catch((error) => {
+      if (getErrorCode(error) === API_INVALID_TOKEN) {
+        return refreshToken(courier);
+      }
+      return Promise.reject(error);
+    });
+}
+
+function refreshToken () {
+  return courier.post('/auth/refresh-token')
+    .then((response) => {
+      return Promise.resolve(response.data);
+    })
+    .catch((error) => {
+      if (getErrorCode(error) === API_INVALID_REFRESH_TOKEN) {
+        store.dispatch('auth/handleInvalidRefresh');
+      }
+      return Promise.reject(error);
+    })
+}
 
 
 /** API Proxy Instance:
  * - Contains the controllers nesting the endpoints
  * - Has closure over the axios instance and the request handler
- * - May have closure over other instances (A pending requests list)
+ * - May have closure over other instances (On-flight requests list)
  */
 
 const apiProxy = {
+  refreshToken,
+
   buildController: function ({ name, endpoints, basePath }) {
     let controller = {};
 
@@ -50,7 +77,7 @@ const apiProxy = {
       const method = endpoints[endpoint].method;
 
       controller[endpoint] = ({ data } = {}) => {
-        return performRequest({ method, url, data });
+        return executeRequest({ method, url, data });
       }
     });
 

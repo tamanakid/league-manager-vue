@@ -1,4 +1,4 @@
-import { AUTH_OPEN_LOGIN_DIALOG } from '@/store/modules/auth';
+import { AUTH_OPEN_LOGIN_DIALOG } from '@/store/modules/auth/mutations';
 
 
 export const CUSTOM_ADD_ACTION = 'CUSTOM_ADD_ACTION';
