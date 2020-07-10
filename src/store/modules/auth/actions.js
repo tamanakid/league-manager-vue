@@ -1,4 +1,4 @@
-import apiProxy from '@/api';
+import apiProxy from '@/api-proxy';
 
 import { AUTH_LOGIN, AUTH_LOGOUT  } from '@/store/modules/auth/mutations';
 
@@ -7,7 +7,6 @@ export default {
 	doLogin ({ commit }, payload) {
 		return apiProxy.auth.postLogin({ data: payload })
 			.then((response) => {
-				debugger;
 				commit(AUTH_LOGIN, response);
 				return Promise.resolve();
 			})

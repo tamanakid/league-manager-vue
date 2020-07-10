@@ -27,7 +27,7 @@
     <template v-slot:footer>
       <v-btn class="primary" @click="onClickLogin">Log in</v-btn>
       <v-btn @click="onCloseDialog">Close</v-btn>
-      <v-btn @click="onRefreshCookie">RefreshCookie</v-btn>
+      <v-btn @click="onRefreshToken">RefreshCookie</v-btn>
     </template>
 
   </CustomDialog>
@@ -72,8 +72,8 @@ export default {
       this.$store.dispatch('auth/doLogin', payload);
     },
 
-    onRefreshCookie() {
-      this.$apiProxy.auth.refreshCookie();
+    onRefreshToken() {
+      this.$store.dispatch('auth/doRefreshToken');
     },
   },
 

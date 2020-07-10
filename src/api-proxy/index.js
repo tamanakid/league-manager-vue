@@ -32,32 +32,37 @@ function getErrorCode(error) {
 }
 
 
-function executeRequest ({ method, url, data }) {
-  return courier({ method, url, data })
-    .then((response) => {
-      console.log("response:", response);
-      return Promise.resolve(response.data);
-    })
-    .catch((error) => {
-      if (getErrorCode(error) === API_INVALID_TOKEN) {
-        return refreshToken(courier);
-      }
-      return Promise.reject(error);
-    });
+async function executeRequest ({ method, url, data }) {
+  try {
+    const response = await courier({ method, url, data });
+    console.log("response:", response);
+    return Promise.resolve(response.data);    
+  }
+
+  catch (error) {
+    if (getErrorCode(error) === API_INVALID_TOKEN) {
+      return refreshToken(courier);
+    }
+    return Promise.reject(error);
+  }
 }
 
-function refreshToken () {
-  return courier.post('/auth/refresh-token')
-    .then((response) => {
-      return Promise.resolve(response.data);
-    })
-    .catch((error) => {
-      if (getErrorCode(error) === API_INVALID_REFRESH_TOKEN) {
-        store.dispatch('auth/handleInvalidRefresh');
-      }
-      return Promise.reject(error);
-    })
+
+async function refreshToken () {
+  let response;
+  try {
+    response = await courier.post('/auth/refresh-token')
+    return response.data;
+  } 
+  
+  catch (error) {
+    if (getErrorCode(error) === API_INVALID_REFRESH_TOKEN) {
+      store.dispatch('auth/handleInvalidRefresh');
+    }
+    return Promise.reject(error);
+  }
 }
+
 
 
 /** API Proxy Instance:
