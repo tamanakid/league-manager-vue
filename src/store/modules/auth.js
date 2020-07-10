@@ -34,12 +34,28 @@ export default {
 	},
 
 	actions: {
-		doLogin (context, payload) {
-			api.auth.postLogin({ data: payload })
+		doLogin ({ commit }, payload) {
+			return api.auth.postLogin({ data: payload })
 				.then((response) => {
-					console.log(response);
+					debugger;
+					commit(AUTH_LOGIN, response.data);
+					return Promise.resolve();
 				})
-		}
+				.catch(error => {
+					return Promise.reject(error);
+				})
+		},
+
+		doRefreshToken ({ commit }, payload) {
+			api.auth.refreshToken()
+				.then((response) => {
+					commit(AUTH_LOGIN, response.data);
+					return Promise.resolve();
+				})
+				.catch(error => {
+					return Promise.reject(error);
+				})
+		},
 	}
 
 }

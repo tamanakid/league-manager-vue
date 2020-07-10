@@ -29,7 +29,6 @@
       <v-btn @click="onRefreshCookie">RefreshCookie</v-btn>
     </template>
 
-
   </CustomDialog>
 </template>
 
@@ -54,10 +53,6 @@ export default {
       showPassword: false,
     };
   },
-
-  // mounted() {
-  //   debugger;
-  // },
 
   methods: {
     toggleShowPassword() {

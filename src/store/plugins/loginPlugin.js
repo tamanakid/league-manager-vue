@@ -1,13 +1,14 @@
 import { AUTH_LOGIN } from '@/store/modules/auth';
-import { CUSTOM_ADD_ACTION, CUSTOM_REMOVE_ACTION } from '@/store/modules/custom';
+
 
 
 const loginPlugin = store => {
 
-	// Initialize Store Plugin
-	if (!store.getters['auth/isLoggedIn']) {
-		store.dispatch('custom/addLoginAction');
-	}
+	/* Initialize Store Plugin: Call refreshToken endpoint */
+	store.dispatch('auth/doRefreshToken')
+		.catch(() => {
+			store.dispatch('custom/addLoginAction');
+		});
 
 
   store.subscribe((mutation) => {
@@ -20,6 +21,7 @@ const loginPlugin = store => {
 		}
   });
 }
+
 
 
 export default loginPlugin;

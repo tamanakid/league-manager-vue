@@ -3,7 +3,7 @@ export default {
 		method: 'post',
 		url: '/login',
 	},
-	refreshCookie: {
+	refreshToken: {
 		method: 'post',
 		url: '/refresh-token',
 	},
