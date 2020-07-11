@@ -1,6 +1,20 @@
+import { doRequest } from '@/api-proxy/utils'
+
+
 export default {
-	getTeamInfo: {
-		method: 'get',
-		url: '/:id/get-info',
+	
+	getInfo: function ({ params, data, config }) {
+		let method = 'get';
+		let url = `/team/${params.teamId}/get-info`;
+
+		return doRequest({ method, url, data, config });
+	},
+
+	
+	getPlayers: function ({ params, data, config }) {
+		let method = 'get';
+		let url = `/team/${params.teamId}/get-players`;
+
+		return doRequest({ method, url, data, config });
 	},
 }

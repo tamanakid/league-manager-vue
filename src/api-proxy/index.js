@@ -1,30 +1,24 @@
 import Vue from 'vue';
-import axios from 'axios';
 
-import controllers from './controllers';
-import factory from './factory'
-
-
-
-/* Axios Instance Definition */
-
-const courier = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
-  timeout: 5000,
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true
-});
-
-const apiProxy = new factory(courier);
+import { doRefreshToken } from '@/api-proxy/utils';
+import auth from './endpoints/auth';
+import team from './endpoints/team';
 
 
-/* Proxy's Controllers Instantiation */
 
-controllers.forEach((controller) => {
-  apiProxy.buildController(controller);
-});
+/* All endpoints: 1-1 mappable to API controllers */
+
+const endpoints = {
+	auth,
+	team,
+};
 
 
+
+/* Exporting and Prototype appending */
+
+const apiProxy = { doRefreshToken, ...endpoints };
 
 Vue.prototype.$apiProxy = apiProxy;
+
 export default apiProxy;
