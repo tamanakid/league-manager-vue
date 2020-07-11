@@ -4,7 +4,13 @@
 
     <v-spacer></v-spacer>
 
-    <template v-for="action in getActions">
+    <template v-for="action in actions">
+      <HeaderAction v-bind="action" :key="action.name" />
+    </template>
+
+    <v-spacer></v-spacer>
+
+    <template v-for="action in authActions">
       <HeaderAction v-bind="action" :key="action.name" />
     </template>
 
@@ -35,9 +41,10 @@ export default {
       isLoginDialogOpen: state => state.isLoginDialogOpen,
     }),
 
-    ...mapGetters('custom', [
-      'getActions'
-    ]),
+    ...mapState('custom', {
+      actions: state => state.actions,
+      authActions: state => state.authActions,
+    }),
 
     ...mapGetters('auth', [
       'isLoggedIn'

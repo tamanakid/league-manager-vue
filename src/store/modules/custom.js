@@ -1,10 +1,8 @@
 import { AUTH_OPEN_LOGIN_DIALOG, AUTH_CLOSE_LOGIN_DIALOG } from '@/store/modules/auth/mutations';
 
 
-export const CUSTOM_ADD_ACTION = 'CUSTOM_ADD_ACTION';
-export const CUSTOM_SET_ACTIONS = 'CUSTOM_SET_ACTIONS';
-export const CUSTOM_REMOVE_ACTION = 'CUSTOM_REMOVE_ACTION';
-export const CUSTOM_CLEAR_ACTIONS = 'CUSTOM_CLEAR_ACTIONS';
+export const CUSTOM_ADD_AUTH_ACTION = 'CUSTOM_ADD_AUTH_ACTION';
+export const CUSTOM_REMOVE_AUTH_ACTION = 'CUSTOM_REMOVE_AUTH_ACTION';
 
 
 export default {
@@ -12,38 +10,27 @@ export default {
 
 	state: {
 		actions: [],
+		authActions: []
 	},
-
-	getters: {
-		getActions: state => {
-			return state.actions;
-		}
-	},
+	
 
 	mutations: {
-		[CUSTOM_ADD_ACTION] (state, payload) {
+		[CUSTOM_ADD_AUTH_ACTION] (state, payload) {
 			if (!state.actions.some((action) => action.name === payload.name)) {
-				state.actions.push(payload);
+				state.authActions.push(payload);
 			}
 		},
 
-		[CUSTOM_SET_ACTIONS] (state, payload) {
-			state.actions = payload;
+		[CUSTOM_REMOVE_AUTH_ACTION] (state, payload) {
+			state.authActions = state.actions.filter((action) => action.name !== payload.name);
 		},
-
-		[CUSTOM_REMOVE_ACTION] (state, payload) {
-			state.actions = state.actions.filter((action) => action.name !== payload.name);
-		},
-
-		[CUSTOM_CLEAR_ACTIONS] (state) {
-			state.actions = [];
-		}
 	},
+
 
 	actions: {
 		// Add/Remove Login Action Button
 		addLoginAction ({ commit, state }) {
-			commit(CUSTOM_ADD_ACTION, {
+			commit(CUSTOM_ADD_AUTH_ACTION, {
 				name: 'login',
 				label: 'Login',
 				icon: 'mdi-login-variant',
@@ -51,7 +38,7 @@ export default {
 			});
 		},
 		removeLoginAction ({ commit }) {
-			commit(CUSTOM_REMOVE_ACTION, { name: 'login' });
+			commit(CUSTOM_REMOVE_AUTH_ACTION, { name: 'login' });
 			commit(`auth/${AUTH_CLOSE_LOGIN_DIALOG}`, null, { root: true });
 		},
 	}
