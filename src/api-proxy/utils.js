@@ -33,12 +33,12 @@ export async function doRequest({ method, url, data, config }, refetch = false) 
 		return response.data;
 
 	} catch (error) {
-		if ((getErrorCode(error) === API_INVALID_TOKEN) && !refetch) {
+		if ((getErrorCode(error) === API_INVALID_TOKEN) && (!refetch)) {
 			try {
 				await store.dispatch('auth/doRefreshToken');
 				return doRequest({ method, url, data, config }, true);
 			} catch (error) {
-				return Promise.reject(error.response);
+				return store.dispatch('auth/handleInvalidRefresh');
 			}
 		}
 		return Promise.reject(error.response);
@@ -50,6 +50,10 @@ export async function doRequest({ method, url, data, config }, refetch = false) 
 /* Refresh-token endpoint */
 
 export async function doRefreshToken() {
-	let response = await axiosInstance.post('/auth/refresh-token');
-	return response.data;
+	try {
+		let response = await axiosInstance.post('/auth/refresh-token');
+		return response.data;
+	} catch (error) {
+		return Promise.reject(error);
+	}
 }

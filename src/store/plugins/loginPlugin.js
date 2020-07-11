@@ -1,5 +1,5 @@
 import { getMutationType } from '@/store/plugins/utils';
-import { AUTH_LOGIN } from '@/store/modules/auth/mutations';
+import { AUTH_LOGIN, AUTH_LOGOUT } from '@/store/modules/auth/mutations';
 
 
 
@@ -14,7 +14,7 @@ const loginPlugin = store => {
 
   store.subscribe((mutation) => {
 		const mutationType = getMutationType(mutation.type);
-    if (mutationType === AUTH_LOGIN) {
+    if ((mutationType === AUTH_LOGIN) || (mutationType === AUTH_LOGOUT)) {
 			if (!store.getters['auth/isLoggedIn']) {
 				store.dispatch('custom/addLoginAction');
 			} else {

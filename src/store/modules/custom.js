@@ -1,4 +1,4 @@
-import { AUTH_OPEN_LOGIN_DIALOG } from '@/store/modules/auth/mutations';
+import { AUTH_OPEN_LOGIN_DIALOG, AUTH_CLOSE_LOGIN_DIALOG } from '@/store/modules/auth/mutations';
 
 
 export const CUSTOM_ADD_ACTION = 'CUSTOM_ADD_ACTION';
@@ -22,7 +22,9 @@ export default {
 
 	mutations: {
 		[CUSTOM_ADD_ACTION] (state, payload) {
-			state.actions.push(payload);
+			if (!state.actions.some((action) => action.name === payload.name)) {
+				state.actions.push(payload);
+			}
 		},
 
 		[CUSTOM_SET_ACTIONS] (state, payload) {
@@ -40,7 +42,7 @@ export default {
 
 	actions: {
 		// Add/Remove Login Action Button
-		addLoginAction ({ commit }) {
+		addLoginAction ({ commit, state }) {
 			commit(CUSTOM_ADD_ACTION, {
 				name: 'login',
 				label: 'Login',
@@ -50,6 +52,7 @@ export default {
 		},
 		removeLoginAction ({ commit }) {
 			commit(CUSTOM_REMOVE_ACTION, { name: 'login' });
+			commit(`auth/${AUTH_CLOSE_LOGIN_DIALOG}`, null, { root: true });
 		},
 	}
 

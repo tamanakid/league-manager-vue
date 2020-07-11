@@ -6,22 +6,25 @@
     </template>
 
     <template v-slot:content>
-      <v-container>
-        <v-row>
-          <v-col cols="12">
-            <v-text-field outlined hide-details v-model="usernameOrEmail" label="Username or Email" required></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              outlined hide-details v-model="password" label="Password" required
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="showPassword ? 'text' : 'password'"
-              @keydown.enter="onClickLogin"
-              @click:append="toggleShowPassword"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
+      <form>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field outlined hide-details v-model="usernameOrEmail" label="Username or Email" required></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                outlined hide-details v-model="password" label="Password" required
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
+                @keydown.enter="onClickLogin"
+                @click:append="toggleShowPassword"
+                current-password
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </form>
     </template>
 
     <template v-slot:footer>

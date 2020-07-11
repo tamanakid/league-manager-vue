@@ -1,7 +1,7 @@
 export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_OPEN_LOGIN_DIALOG = 'AUTH_OPEN_LOGIN_DIALOG';
 export const AUTH_CLOSE_LOGIN_DIALOG = 'AUTH_CLOSE_LOGIN_DIALOG';
-export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
 
 export default {
