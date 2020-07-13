@@ -9,6 +9,7 @@ const loginPlugin = store => {
 	store.dispatch('auth/doRefreshToken')
 		.catch(() => {
 			store.dispatch('custom/addLoginAction');
+			// store.dispatch('nav/setLoggedItems');
 		});
 
 
@@ -17,8 +18,10 @@ const loginPlugin = store => {
     if ((mutationType === AUTH_LOGIN) || (mutationType === AUTH_LOGOUT)) {
 			if (!store.getters['auth/isLoggedIn']) {
 				store.dispatch('custom/addLoginAction');
+				// store.dispatch('nav/setLoggedItems');
 			} else {
 				store.dispatch('custom/removeLoginAction');
+				// store.dispatch('nav/setUnloggedItems');
 			}
 		}
   });

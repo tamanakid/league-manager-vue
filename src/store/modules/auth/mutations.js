@@ -7,9 +7,8 @@ export const AUTH_CLOSE_LOGIN_DIALOG = 'AUTH_CLOSE_LOGIN_DIALOG';
 export default {
 	[AUTH_LOGIN] (state, payload) {
 		state.accessToken = payload.accessToken;
-		if (payload.userId) {
-			state.userId = payload.userId;
-		}
+		state.userId = payload.userId;
+		state.isLoginDialogOpen = false;
 	},
 
 	[AUTH_LOGOUT] (state, payload) {

@@ -10,6 +10,7 @@ export default {
 		isLoginDialogOpen: false,
 		accessToken: null,
 		userId: null,
+		username: null,
 	},
 
 	getters,

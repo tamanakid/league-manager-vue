@@ -68,11 +68,11 @@ export default {
     }),
 
     onClickLogin() {
-      const payload = {
+      const data = {
         usernameOrEmail: this.usernameOrEmail, 
         password: this.password
       };
-      this.$store.dispatch('auth/doLogin', payload);
+      this.$store.dispatch('auth/doLogin', { data });
     },
 
     onRefreshToken() {

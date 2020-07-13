@@ -1,23 +1,25 @@
 import apiProxy from '@/api-proxy';
 
-import { AUTH_LOGIN, AUTH_LOGOUT  } from '@/store/modules/auth/mutations';
+import { AUTH_LOGIN, AUTH_LOGOUT } from '@/store/modules/auth/mutations';
 
 
 export default {
-	async doRefreshToken ({ commit }) {
+	async doRefreshToken ({ commit }, payload = {}) {
 		try {
 			let response = await apiProxy.doRefreshToken();
 			commit(AUTH_LOGIN, response);
 			return response;
 		} catch (error) {
 			console.log("You're not logged in");
-			return Promise.reject(error);
+			if (!payload.isNotCatchable) {
+				return Promise.reject(error);
+			}
 		};
 	},
 
 
-	doLogin ({ commit }, payload) {
-		return apiProxy.auth.postLogin({ data: payload })
+	doLogin ({ commit }, payload = {}) {
+		return apiProxy.auth.postLogin({ data: payload.data })
 			.then((response) => {
 				commit(AUTH_LOGIN, response);
 				return Promise.resolve();

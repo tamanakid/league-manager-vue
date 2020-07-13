@@ -1,5 +1,5 @@
 <template>
-	<v-btn outlined @click.stop="method">
+	<v-btn outlined class="mx-3" @click.stop="method">
 		<span class="mr-2">{{ label }}</span>
 		<v-icon v-if="icon">{{ icon }}</v-icon>
 	</v-btn>
