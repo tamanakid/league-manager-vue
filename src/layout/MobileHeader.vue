@@ -5,22 +5,52 @@
 
       <v-spacer></v-spacer>
 
-      <div class="d-none d-lg-block">
-        <HeaderItem v-for="item in items" v-bind="item" :key="item.name" />
+      <div>
+        <v-btn outlined class="mx-3" @click.stop="onShowNavDrawer">
+          <v-icon>mdi-menu-open</v-icon>
+        </v-btn>
       </div>
+
 
       <LoginDialog v-if="isLoginDialogOpen" />
 
     </v-app-bar>
+    <v-navigation-drawer
+      v-model="isShowNavDrawer"
+      absolute
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
-
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 
 import HeaderLogo from '@/layout/HeaderLogo.vue'
-import HeaderItem from '@/layout/HeaderItem.vue'
 import LoginDialog from '@/layout/LoginDialog.vue';
 import headerItemsList from './headerItemsList'
 
@@ -28,7 +58,6 @@ export default {
   name: 'Header',
 
   components: {
-    HeaderItem,
     HeaderLogo,
     LoginDialog,
   },
@@ -37,7 +66,7 @@ export default {
   data() {
     return {
       items: [],
-      isShowHeaderItems: false,
+      isShowNavDrawer: false,
     };
   },
   
@@ -71,6 +100,10 @@ export default {
         this.items = headerItemsList.filter(item => item.isActiveWhenUnlogged)
       }
     },
+
+    onShowNavDrawer() {
+      this.isShowNavDrawer = true;
+    }
   }
 
   
